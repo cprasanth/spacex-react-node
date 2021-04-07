@@ -1,17 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { device } from "../../helpers";
 import Image from "../image";
 import Lockup from "../lockup";
 
 const LaunchCardWrapper = styled.div`
   display: block;
-  margin-bottom: 30px;
-  margin-left: 20px;
   width: 100%;
 `;
 
-const LaunchCardContainer = styled.div``;
+const LaunchCardContainer = styled.div`
+  display: flex;
+  flex-flow: column-reverse;
+  height: 100%;
+`;
 
 const ImagContainer = styled.div`
   padding: 40px 20px;

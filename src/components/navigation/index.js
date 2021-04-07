@@ -10,7 +10,7 @@ import { device } from "../../helpers";
 const navData = [
   { home: "rockets" },
   { launches: "launches" },
-  { rockets: "launches" },
+  { rockets: "rockets" },
 ];
 
 const NavList = styled.ul`

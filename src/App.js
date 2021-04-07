@@ -1,12 +1,12 @@
 import "./App.css";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import styled from "styled-components";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import Header from "./components/shared/header";
 import Hero from "./components/hero";
 import Section from "./layout/section";
-import Wrapper from "./layout/wrapper";
-import LaunchCard from "./components/lauch-card";
+import Rockets from "./pages/Rockets";
+import Launches from "./pages/Launches";
 
 const MainWrapper = styled.main`
   display: block;
@@ -34,54 +34,31 @@ const ContentSelector = styled.div`
 `;
 
 function App() {
-  const [data, setData] = useState({ launches: [] });
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(
-        "https://api.spacexdata.com/v4/launches/past?limit=10"
-      );
-
-      console.log(result.data);
-
-      setData({ launches: result.data });
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
-
   return (
-    <MainWrapper>
-      <Header />
-      <Section>
-        <Hero />
-      </Section>
-      <Section>
-        <ContentSelector>
-          <button>Launches</button>
-          <button>rockets</button>
-        </ContentSelector>
-      </Section>
-      <Section>
-        {loading && <div>loading....</div>}
-
-        {!loading && (
-          <Wrapper>
-            <div className="grid">
-              {data.launches.map((item, index) => (
-                <LaunchCard
-                  key={index.toString()}
-                  image={item.links.patch.small}
-                  title={item.name}
-                  description={item.details}
-                />
-              ))}
-            </div>
-          </Wrapper>
-        )}
-      </Section>
-    </MainWrapper>
+    <Router>
+      <MainWrapper>
+        <Header />
+        <Section>
+          <Hero />
+        </Section>
+        <Section>
+          <ContentSelector>
+            <button>Launches</button>
+            <button>rockets</button>
+          </ContentSelector>
+        </Section>
+        <Section>
+          <Switch>
+            <Route path="/rockets">
+              <Rockets />
+            </Route>
+            <Route path="/launches">
+              <Launches />
+            </Route>
+          </Switch>
+        </Section>
+      </MainWrapper>
+    </Router>
   );
 }
 
